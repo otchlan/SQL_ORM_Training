@@ -29,7 +29,6 @@ BazaModel.metadata.create_all(baza)
 DBSesja = sessionmaker(bind=baza)
 sesja = DBSesja()
 
-
 def wiele_z1():
     uczniowie = zp.pobierzPlik()
 
@@ -65,7 +64,7 @@ def interfejs_z2():
         button = int(input())
         if button == 1:
             print("Odczytywanie z bazy danych")
-            wiele_z1()
+            czytajdane()
 
         elif button == 2:
             print("Dodawanie do bazy danych")
@@ -98,15 +97,40 @@ def dodawanie():
     sesja.commit()
 
 def modyfikowanie():
-    """Jak wynbrać konkterny rekord z bazy"""
-    """Jak to zrobić, żeby było automatyczne: 
-    Ktoś chce zmienić klase wpisuje imie i nazwisko i zmienia klase"""
-    test = sesja.query(Uczen).filter_by(imie='Jan').all()
+    print("Podaj numer rekord, który zmieniamy")
+    rin = input()
 
+    x = False
+    while x != True:
+        try:
+            rin = int(rin)
+            x = True
+        except ValueError:
+            print("Podaj liczbe")
+            rin = input()
+    # r = isinstance(rin, int)
+    # print(r)
+    modifi = sesja.query(Uczen).get(rin)
+    modifi_2 = sesja.query(Klasa).get(modifi.klasa_id)
+    print("Z bazy:", modifi.imie, modifi.nazwisko, modifi_2.nazwa, modifi_2.profil)
 
-    # print("tt", test)
-    for t in test:
-        print("Test ", t.id, t.imie, t.nazwisko, t.klasa.nazwa)
+    sesja.query(Uczen).filter(Uczen.id == rin).update({Uczen.imie:'Stefan'}, synchronize_session=False)
+    modifi = sesja.query(Uczen).get(rin)
+    sesja.commit()
+    print("Po: ", modifi.imie)
+
+    """Error: 'Uczen' has no attribute 'select"""
+    # inst_uczen = Uczen().select().join().where(Uczen.id == rin).get()
+    # print(inst_uczen)
+    # inst_uczen.klasa = Klasa.select().where(Klasa.nazwa == '1B').get()
+    # print(inst_uczen.klasa)
+
+    """Test"""
+    # test = sesja.query(Uczen).get(3)
+    # test_2 = sesja.query(Klasa).get(test.klasa_id)
+    # print("tt", test.imie, test.klasa_id, test_2.profil)
+    # for t in test:
+    #     print("Test ", t.id, t.imie, t.nazwisko, t.klasa.nazwa)
 
 
 def czytajdane():
