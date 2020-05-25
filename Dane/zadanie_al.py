@@ -87,12 +87,12 @@ def dodawanie():
     nazwisko_p = input()
     print("Do której klasy chodzi")
     nazwa_p = input()
-    print("Podaj profil klasy")
-    profil_p = input()
+    # print("Podaj profil klasy")
+    # profil_p = input()
 
     """How to join in two difference databases"""
 
-    sesja.add(Uczen(imie=imie_p, nazwisko=nazwisko_p)).join(Klasa(nazwa=nazwa_p, profil=profil_p))
+    sesja.add(Uczen(imie=imie_p, nazwisko=nazwisko_p, klasa_id=nazwa_p))
     print("Dodano")
     sesja.commit()
 
