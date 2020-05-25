@@ -68,15 +68,15 @@ def interfejs_z2():
 
         elif button == 2:
             print("Dodawanie do bazy danych")
-            print(dodawanie())
+            dodawanie()
 
         elif button == 3:
             print("Modyfikowanie bazy")
-
+            modyfikowanie()
 
         elif button == 4:
             print("Usuwanie z bazy")
-
+            usuwanie()
         else:
             print("META")
 
@@ -132,6 +132,14 @@ def modyfikowanie():
     # for t in test:
     #     print("Test ", t.id, t.imie, t.nazwisko, t.klasa.nazwa)
 
+def usuwanie():
+    print("Podaj którą usuwamy")
+    usun = int(input())
+    row = sesja.query(Uczen).get(usun)
+    sesja.delete(row)
+    sesja.commit()
+
+    print("Usunięto ")
 
 def czytajdane():
 

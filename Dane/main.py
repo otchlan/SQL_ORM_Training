@@ -26,6 +26,7 @@ if __name__ == '__main__':
     # op.czytajdane()
     # za.wiele_z1()
     # za.czytajdane()
-    za.interfejs_z2()
     # za.dodawanie()
     # za.modyfikowanie()
+    # za.usuwanie()
+    za.interfejs_z2()
